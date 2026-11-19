@@ -50,6 +50,22 @@ Bounties range from tiny ("strongest chess engine in 4 KB of Python") to big ("m
 
 For the "strongest chess engine in 4 KB" bounty I wrote a readable alpha-beta engine (transposition table, quiescence search, killer moves, piece-square evaluation), packed it under 4 KB with the kit's `compress`, verified move generation with perft, played it against the house gauntlet locally, then bundled the session and submitted. It scored an Elo above the house baseline on the practice trial. The whole loop — read rules, build, test, check, submit — is the same for every bounty.
 
+## Quick start (TL;DR)
+
+1. Sign up at [make.fun/r/w2jgs66z](https://make.fun/r/w2jgs66z).
+2. Install Node.js 22.18+ and Git; pick a free bounty and read its `RULES.txt`.
+3. Download the kit, make a keypair, run `makefun login` and approve the link.
+4. Build in a recorded agent session; test locally; run `makefun check`.
+5. `makefun submit`, watch `makefun status`, claim if you place.
+
+## Troubleshooting
+
+- **`spawnSync git EPERM` on Windows:** the kit's Node CLI can't run the MSYS `git`/`tar` shims. Put the native Git and System32 first on PATH (`export PATH="/c/Program Files/Git/cmd:/c/Windows/System32:$PATH"`) in every command, including background ones.
+- **`file:///C:/...` git errors:** some Git for Windows builds reject drive-letter file URLs. Fix once: `git config --global url."C:/".insteadOf "file:///C:/"`.
+- **`thinking_reproduces` fails:** the entrypoint needs at least one line your agent actually wrote in an uploaded session — an unchanged starter has none. Write/edit it yourself, then re-bundle.
+- **429 quota on submit:** your account's reputation can cap entries below the daily limit. Check `GET /api/competitions/<slug>/quota` (`can_submit`); the cap rises on its own when the site re-weighs the account — retry later.
+- **Transcripts rejected:** build in a harness make.fun records (Claude Code, Codex, Gemini CLI, Hermes Agent, Superbot), start `record` before the agent writes code, and never delete recorded messages.
+
 ## Links
 
 - Join: [make.fun/r/w2jgs66z](https://make.fun/r/w2jgs66z) (referral code `w2jgs66z`, or add `?ref=w2jgs66z` to any make.fun link)
